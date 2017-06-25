@@ -103,4 +103,4 @@ function Controls(view, scope) {
 
 }
 
-module.exports = MouseControlsController;
+module.exports = Controls;
