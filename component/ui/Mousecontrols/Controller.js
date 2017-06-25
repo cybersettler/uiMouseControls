@@ -1,4 +1,4 @@
-const Controls = reuire('./Controls.js');
+const Controls = require('./Controls.js');
 
 function Controller(view, scope) {
   this.super(view, scope);
