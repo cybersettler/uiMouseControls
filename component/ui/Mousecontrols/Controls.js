@@ -1,6 +1,7 @@
 function Controls(view, scope) {
   var blocker = view.shadowRoot.querySelector("#blocker");
   var panel2D = view.shadowRoot.querySelector(".panel2D");
+  var parentView;
 
   document.body.requestPointerLock = document.body.requestPointerLock || document.body.webkitRequestPointerLock;
   document.exitPointerLock = document.exitPointerLock || document.webkitExitPointerLock;
@@ -11,14 +12,15 @@ function Controls(view, scope) {
     panel2D.innerHTML = 'Your system doesn\'t seem to support Pointer Lock API';
   }
 
-  var parentView = scope.getParentView();
+  scope.getParentView().then(function(result) {
+    parentView = result;
+    // Hook pointer lock state change events
+    document.addEventListener('pointerlockchange', onPointerLockChange, false);
+    document.addEventListener('webkitpointerlockchange', onPointerLockChange, false);
 
-  // Hook pointer lock state change events
-  document.addEventListener('pointerlockchange', onPointerLockChange, false);
-  document.addEventListener('webkitpointerlockchange', onPointerLockChange, false);
-
-  document.addEventListener('pointerlockerror', onPointerlockerror, false);
-  document.addEventListener('webkitpointerlockerror', onPointerlockerror, false);
+    document.addEventListener('pointerlockerror', onPointerlockerror, false);
+    document.addEventListener('webkitpointerlockerror', onPointerlockerror, false);
+  });
 
   this.detach = function() {
     document.removeEventListener('pointerlockchange', onPointerLockChange);
@@ -67,7 +69,7 @@ function Controls(view, scope) {
         }
       });
 
-      view.scope.getParentView().dispatchEvent(mouseMoveEvent);
+      parentView.dispatchEvent(mouseMoveEvent);
   };
 
   function onMouseUp( e ){

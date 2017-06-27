@@ -8,10 +8,10 @@ function Controller(view, scope) {
     controls = new Controls(view, scope);
   });
 
-  scope.onAttributeChanged.then(function(attr, oldVal, newVal) {
-    if( "data-lockpointer" === attr && newVal === "true" ){
+  scope.onAttributeChanged.then(function(result) {
+    if( "data-lockpointer" === result.attribute && result.newValue === "true" ){
       document.body.requestPointerLock();
-    }else if( "data-lockpointer" === attr && newVal === "false" ){
+    }else if( "data-lockpointer" === result.attribute && result.newValue === "false" ){
       document.exitPointerLock();
     }
   });
