@@ -29,4 +29,6 @@ class MouseControlsElement extends FragmentElement {
   }
 }
 
+customElements.define('ui-mousecontrols', MouseControlsElement);
+
 export default MouseControlsElement;
