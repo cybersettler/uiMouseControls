@@ -17,31 +17,29 @@ function Controls(view, scope) {
     throw new Error('Your system doesn\'t seem to support Pointer Lock API');
   }
 
-  scope.getParentView().then(function(result) {
-    instance.parentView = result;
-    // Hook pointer lock state change events
-    if ('onpointerlockchange' in document) {
-      document.addEventListener('pointerlockchange',
-          onPointerLockChange, false);
-    } else if ('webkitpointerlockchange' in document) {
-      document.addEventListener('webkitpointerlockchange',
-          onPointerLockChange, false);
-    } else if ('onmozpointerlockchange' in document) {
-      document.addEventListener('onmozpointerlockchange',
-          onPointerLockChange, false);
-    }
+  instance.parentView = scope.getParentView();
+  // Hook pointer lock state change events
+  if ('onpointerlockchange' in document) {
+    document.addEventListener('pointerlockchange',
+        onPointerLockChange, false);
+  } else if ('webkitpointerlockchange' in document) {
+    document.addEventListener('webkitpointerlockchange',
+        onPointerLockChange, false);
+  } else if ('onmozpointerlockchange' in document) {
+    document.addEventListener('onmozpointerlockchange',
+        onPointerLockChange, false);
+  }
 
-    if ('pointerlockerror' in document) {
-      document.addEventListener('pointerlockerror',
-          onPointerlockerror, false);
-    } else if ('webkitpointerlockerror' in document) {
-      document.addEventListener('webkitpointerlockerror',
-          onPointerlockerror, false);
-    } else if ('mozpointerlockerror' in document) {
-      document.addEventListener('mozpointerlockerror',
-          onPointerlockerror, false);
-    }
-  });
+  if ('pointerlockerror' in document) {
+    document.addEventListener('pointerlockerror',
+        onPointerlockerror, false);
+  } else if ('webkitpointerlockerror' in document) {
+    document.addEventListener('webkitpointerlockerror',
+        onPointerlockerror, false);
+  } else if ('mozpointerlockerror' in document) {
+    document.addEventListener('mozpointerlockerror',
+        onPointerlockerror, false);
+  }
 
   this.detach = function() {
     document.removeEventListener('pointerlockchange',
